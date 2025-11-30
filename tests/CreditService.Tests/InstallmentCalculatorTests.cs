@@ -1,5 +1,4 @@
 using CreditService.Api.Services;
-using Xunit;
 
 namespace CreditService.Tests;
 
