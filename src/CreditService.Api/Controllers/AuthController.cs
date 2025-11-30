@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -24,7 +23,6 @@ public class AuthController : ControllerBase
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     public IActionResult Login([FromBody] LoginRequest request)
     {
-        // Dummy authentication
         if (request.Username != "admin" || request.Password != "password")
         {
             return Unauthorized();

@@ -10,7 +10,7 @@ namespace CreditService.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[Authorize]  // all endpoints require JWT
+[Authorize] 
 public class CreditApplicationsController : ControllerBase
 {
     private readonly AppDbContext _db;
@@ -58,7 +58,6 @@ public class CreditApplicationsController : ControllerBase
         return CreatedAtAction(nameof(GetById), new { id = entity.Id }, response);
     }
 
-    // Read by id
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<CreditApplicationResponse>> GetById(Guid id)
     {
@@ -72,7 +71,6 @@ public class CreditApplicationsController : ControllerBase
         return Ok(ToResponse(entity));
     }
 
-    // List all (could add paging later)
     [HttpGet]
     public async Task<ActionResult<IEnumerable<CreditApplicationResponse>>> GetAll()
     {
@@ -83,7 +81,6 @@ public class CreditApplicationsController : ControllerBase
         return Ok(entities.Select(ToResponse));
     }
 
-    // Update
     [HttpPut("{id:guid}")]
     public async Task<ActionResult<CreditApplicationResponse>> Update(
         Guid id,
@@ -112,7 +109,6 @@ public class CreditApplicationsController : ControllerBase
         return Ok(ToResponse(entity));
     }
 
-    // Delete
     [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete(Guid id)
     {

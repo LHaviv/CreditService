@@ -1,5 +1,3 @@
-using System;
-
 namespace CreditService.Api.Services
 {
     public interface IInstallmentCalculator

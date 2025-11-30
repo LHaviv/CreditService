@@ -9,7 +9,6 @@ using CreditService.Api.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Serilog
 Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(builder.Configuration)
     .Enrich.FromLogContext()
@@ -17,16 +16,13 @@ Log.Logger = new LoggerConfiguration()
 
 builder.Host.UseSerilog();
 
-// DB
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-// register the installment calculator
 builder.Services.AddScoped<IInstallmentCalculator, InstallmentCalculator>();
 
-// Authentication
 var jwtSettings = builder.Configuration.GetSection("Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]!);
 
@@ -53,7 +49,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Migrate DB automatically
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -63,7 +58,6 @@ using (var scope = app.Services.CreateScope())
     var loggerFactory = services.GetRequiredService<ILoggerFactory>();
     var logger = loggerFactory.CreateLogger("DataSeeder");
 
-    // Apply migrations then seed
     db.Database.Migrate();
     DataSeeder.Seed(db, calculator, logger);
 }
@@ -74,7 +68,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseSerilogRequestLogging(); // log requests
+app.UseSerilogRequestLogging(); 
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 

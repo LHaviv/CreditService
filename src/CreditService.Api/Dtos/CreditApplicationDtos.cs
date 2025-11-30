@@ -19,7 +19,7 @@ public class CreateCreditApplicationRequest
 
 public class UpdateCreditApplicationRequest : CreateCreditApplicationRequest
 {
-    // same fields for now
+
 }
 
 public class CreditApplicationResponse

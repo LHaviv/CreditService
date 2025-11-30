@@ -1,6 +1,5 @@
 using CreditService.Api.Models;
 using CreditService.Api.Services;
-using Microsoft.EntityFrameworkCore;
 
 namespace CreditService.Api.Data;
 
@@ -8,7 +7,6 @@ public static class DataSeeder
 {
     public static void Seed(AppDbContext context, IInstallmentCalculator calculator, ILogger logger)
     {
-        // Only seed if table is empty
         if (context.CreditApplications.Any())
         {
             logger.LogInformation("Database already has data, skipping seeding.");
